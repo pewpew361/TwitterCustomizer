@@ -1,5 +1,5 @@
 // Function to handle tab visibility and focus
-function handleTabVisibility(hide = true) {
+function handleTabVisibility(hide = true, shouldFocus = false) {
   const styleId = "twitter-tab-customizer-style";
   let styleEl = document.getElementById(styleId);
 
@@ -20,15 +20,17 @@ function handleTabVisibility(hide = true) {
       }
     `;
 
-    // Focus on Following tab
-    setTimeout(() => {
-      const followingTab = document.querySelector(
-        'div[role="presentation"]:not(:first-of-type) a[role="tab"]'
-      );
-      if (followingTab) {
-        followingTab.click();
-      }
-    }, 500);
+    // Only focus if explicitly requested (initial load or toggle)
+    if (shouldFocus) {
+      setTimeout(() => {
+        const followingTab = document.querySelector(
+          'div[role="presentation"]:not(:first-of-type) a[role="tab"]'
+        );
+        if (followingTab) {
+          followingTab.click();
+        }
+      }, 500);
+    }
   } else {
     if (styleEl) {
       styleEl.remove();
@@ -36,23 +38,23 @@ function handleTabVisibility(hide = true) {
   }
 }
 
-// Load saved state and apply initially
+// Load saved state and apply initially with focus
 chrome.storage.sync.get(["hideForYou"], (result) => {
-  handleTabVisibility(result.hideForYou !== false);
+  handleTabVisibility(result.hideForYou !== false, true);
 });
 
 // Listen for messages from popup
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   if (message.action === "toggleForYou") {
-    handleTabVisibility(message.hide);
+    handleTabVisibility(message.hide, true);
   }
 });
 
-// Handle dynamic content loading
+// Handle dynamic content loading - only apply hiding, no focus
 const observer = new MutationObserver((mutations) => {
   chrome.storage.sync.get(["hideForYou"], (result) => {
     if (result.hideForYou !== false) {
-      handleTabVisibility(true);
+      handleTabVisibility(true, false);
     }
   });
 });
