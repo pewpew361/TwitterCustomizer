@@ -15,7 +15,7 @@ A sleek Chrome extension that enhances your Twitter/X.com experience by letting 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/yourusername/twitter-tab-customizer.git
+   git clone https://github.com/pewpew361/TwitterCustomizer.git
    ```
 
 2. Open Chrome and navigate to `chrome://extensions/`
