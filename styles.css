@@ -1,0 +1,20 @@
+/* Hide the "For you" tab by its specific class */
+.css-146c3p1.r-bcqeeo.r-1ttztb7.r-qvutc0.r-37j5jr.r-a023e6.r-rjixqe.r-b88u0q.r-1awozwy.r-6koalj.r-18u37iz.r-1pi2tsx.r-1777fci.r-1l7z4oj.r-95jzfe.r-bnwqim {
+  display: none !important;
+}
+
+/* Hide only the "For you" tab container */
+div[role="presentation"]:first-of-type a[role="tab"] {
+  display: none !important;
+}
+
+/* Reset any hiding on other tabs to ensure they're visible */
+div[role="presentation"]:not(:first-of-type) a[role="tab"] {
+  display: flex !important;
+}
+
+/* Ensure text is visible in all tabs except "For you" */
+div[role="presentation"]:not(:first-of-type) a[role="tab"] div[dir="ltr"],
+div[role="presentation"]:not(:first-of-type) a[role="tab"] span {
+  display: inline !important;
+}
